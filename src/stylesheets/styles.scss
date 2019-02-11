@@ -2,18 +2,18 @@
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700);
 
-$indigo: #4B0082;
+$indigo:     #4B0082;
 $light-gray: #ededf5;
-$gray: #555;
-$salmon: #FA8072;
-$fonts: "Open Sans", "Helvetica", sans-serif;
+$gray:       #555;
+$salmon:     #FA8072;
+$fonts:      "Open Sans", "Helvetica", sans-serif;
 
 body {
-  font-family: $fonts;
-  color: $gray;
-  margin: 5px;
+  font-family:      $fonts;
+  color:            $gray;
+  margin:           5px;
   background-color: #ebebeb;
-  overflow: hidden;
+  overflow:         hidden;
 }
 
 h1 { font-size: 3em; }
@@ -23,77 +23,131 @@ h4 { font-size: 1.5em; }
 
 a {
   text-decoration: none;
-  color: $gray;
+  color:           $gray;
 }
 
 main {
-  display: flex;
+  display:         flex;
   justify-content: space-between;
+
   .text-submission {
-    display: flex;
-    flex-direction: column;
+    display:         flex;
+    flex-direction:  column;
     justify-content: space-around;
-    flex: 1;
-    margin-right: 20px;
-    height: 100vh;
+    flex:            1;
+    margin-right:    20px;
+    height:         100vh;
+
     h2 {
       margin-bottom: 10px;
-        color: $indigo;
+      color:       $indigo;
+
       span {
-      color: $salmon;
+        color: $salmon;
       }
     }
+
     textarea {
-      resize: none;
-      border: 2px solid $light-gray;
+      resize:        none;
+      border:        2px solid $light-gray;
       border-radius: 3px;
-      width: 100%;
-      height: 80vh;
-      font-family: $fonts;
+      width:         100%;
+      height:        80vh;
+      font-family:   $fonts;
     }
+
     button {
-      border: none;
-      color: $light-gray;
-      width: 205px;
-      border-radius: 3px;
-      padding: .8em 3em;
-      font-size: 1.1em;
-      margin-top: 10px;
-      transition: 300ms;
+      border:           none;
+      color:            $light-gray;
+      width:            205px;
+      border-radius:    3px;
+      padding:          .8em 3em;
+      font-size:        1.1em;
+      margin-top:       10px;
+      transition:       300ms;
       background-color: $salmon;
+
       &:hover, &:focus {
-        transition: 300ms;
-        cursor: pointer;
+        transition:       300ms;
+        cursor:           pointer;
         background-color: $indigo;
       }
     }
-  }
-  .word-data {
-    width: 65%;
-    background-color: #ddd;
-    #top-word {
-      display: flex;
-      flex-direction: column;
+
+    #feedback {
+      display:         flex;
+      flex-direction:  column;
+      text-align:      center;
+      align-content:   center;
       justify-content: center;
-      border-bottom: 2px solid $indigo;
-      height: 8vh;
-      color: $salmon;
-      padding: 10px;
-    }
-    #word-count {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      padding: 5px;
-      overflow-y: scroll;
-      overflow-x: scroll;
-      height: 90vh;
+
       p {
-        margin-right: 10px;
-        span {
-          display: none;
-        }
+        font-size: .6em;
+        color:     red;
+      }
+
+      ul {
+        font-size: .8em;
+        // list-style-type: circle;
+        font-weight: bolder;
+      }
+
+    }
+
+  }
+
+  .word-data {
+    width:            65%;
+    background-color: #ddd;
+
+    #top-word {
+      display:         flex;
+      flex-direction:  column;
+      text-align:      center;
+      align-items:     center;
+      border-bottom:   2px solid $indigo;
+      height:          8vh;
+      color:           $salmon;
+      padding:         10px;
+    }
+
+    span {
+      background-color: $salmon;
+      color:            white;
+      position:         relative;
+      width:            50%;
+      padding:          15%;
+      margin:           15%;
+      justify-content:  center;
+
+      p {
+        margin: 5%;
       }
     }
+
+    #topWord {
+      font-size:   3em;
+      font-weight: bolder;
+    }
+
+    // #word-count {
+    //   display:     flex;
+    //   flex-wrap:   wrap;
+    //   align-items: baseline;
+    //   padding:     5px;
+    //   overflow-y:  scroll;
+    //   overflow-x:  scroll;
+    //   height:      90vh;
+    //
+    //
+    //   p {
+    //     margin-right: 10px;
+    //
+    //     span {
+    //       display: none;
+    //     }
+    //   }
+    // }
+
   }
 }
