@@ -71,7 +71,7 @@ main {
   .word-data {
     width: 65%;
     background-color: #ddd;
-    .top-word {
+    #top-word {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -80,7 +80,7 @@ main {
       color: $salmon;
       padding: 10px;
     }
-    .word-count {
+    #word-count {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
