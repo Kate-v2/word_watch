@@ -100,21 +100,13 @@ function showTopWord(obj) {
 }
 
 function showWord(word) {
-  let display       = document.createElement('p')
-  display.id        = 'topWord'
-  display.innerHTML = titlize(word)
-  let section       = document.getElementById('top-word')
-  section.appendChild(display)
-  return display
+  let section       = document.getElementById('topWord')
+  section.innerHTML = titlize(word)
 }
 
 function showCount(count) {
-  let display       = document.createElement('p')
-  display.id        = 'topWordCount'
-  display.innerHTML = `Count: ${count}`
-  let section       = document.getElementById('word-count')
-  section.appendChild(display)
-  return display
+  let section       = document.getElementById('topWordCount')
+  section.innerHTML = `Count: ${count}`
 }
 
 function titlize(word) {
