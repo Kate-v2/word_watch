@@ -86,7 +86,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 function getTopWord() {
   let url = 'https://wordwatch-api.herokuapp.com/api/v1/top_word'
-  debugger
   fetch(url)
     .then(response => response.json())
     .then(data => showTopWord(data.word))
@@ -94,6 +93,8 @@ function getTopWord() {
 }
 
 function showTopWord(obj) {
+  let word = Object.keys(obj)[0]
+  let ct   = Object.values(obj)[0]
   debugger
 }
 
