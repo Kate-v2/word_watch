@@ -81,8 +81,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 
 
+
+
+
+function getTopWord() {
+  let url = 'https://wordwatch-api.herokuapp.com/api/v1/top_word'
+  debugger
+  fetch(url)
+    .then(response => response.json())
+    .then(data => showTopWord(data.word))
+    .catch(error => console.log(error))
+}
+
+function showTopWord(obj) {
+  debugger
+}
+
+
+
 __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
-  // have fun!
+
+  getTopWord()
+
+
+
+
 })
 
 
