@@ -16,17 +16,29 @@ function showTopWord(obj) {
   let ct   = Object.values(obj)[0]
   showWord(word)
   showCount(ct)
-  debugger
 }
 
 function showWord(word) {
   let display       = document.createElement('p')
   display.id        = 'topWord'
-  display.innerHTML = word
+  display.innerHTML = titlize(word)
   let section       = document.getElementById('top-word')
   section.appendChild(display)
+  return display
 }
 
+function showCount(count) {
+  let display       = document.createElement('p')
+  display.id        = 'topWordCount'
+  display.innerHTML = `Count: ${count}`
+  let section       = document.getElementById('word-count')
+  section.appendChild(display)
+  return display
+}
+
+function titlize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}
 
 
 $(document).ready(() => {

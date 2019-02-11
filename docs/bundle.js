@@ -95,9 +95,31 @@ function getTopWord() {
 function showTopWord(obj) {
   let word = Object.keys(obj)[0]
   let ct   = Object.values(obj)[0]
-  debugger
+  showWord(word)
+  showCount(ct)
 }
 
+function showWord(word) {
+  let display       = document.createElement('p')
+  display.id        = 'topWord'
+  display.innerHTML = titlize(word)
+  let section       = document.getElementById('top-word')
+  section.appendChild(display)
+  return display
+}
+
+function showCount(count) {
+  let display       = document.createElement('p')
+  display.id        = 'topWordCount'
+  display.innerHTML = `Count: ${count}`
+  let section       = document.getElementById('word-count')
+  section.appendChild(display)
+  return display
+}
+
+function titlize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}
 
 
 __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
