@@ -101,11 +101,13 @@ function showTopWord(obj) {
 
 function showWord(word) {
   let section       = document.getElementById('topWord')
+  section.innerHTML = ''
   section.innerHTML = titlize(word)
 }
 
 function showCount(count) {
   let section       = document.getElementById('topWordCount')
+  section.innerHTML = ''
   section.innerHTML = `Count: ${count}`
 }
 
@@ -113,14 +115,85 @@ function titlize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
+function addWordsSubmission() {
+  let button     = document.getElementById('addWords')
+  button.onclick = function() { postWords() }
+}
+
+function postWords() {
+  let words = getWords()
+  for (let i=0; i < words.length; i++) {
+    // TO DO - add letter validation
+    // if not letter, send word into an array
+    // print the array to user as words not added.
+    // - OR - If word had non-letter, remove it and post word?
+    postWord(words[i])
+  }
+}
+
+function postWord(word){
+  let url  = 'https://wordwatch-api.herokuapp.com/api/v1/words'
+  let json = { 'word': { 'value': word } }
+  fetch(url, {
+    method:  'POST',
+    headers: { 'Content-type': 'application/json' },
+    body:    JSON.stringify(json)
+  })
+    .then(response => response.json())
+    .then(msg  => assessPost(msg, word) )
+    .catch(msg => assessPost(msg, word))
+}
+
+function assessPost(message, word) {
+  let msg = message.message
+  if ( !msg.endsWith('added!') ) { displayNotPosted(word) }
+  // TO DO - add positive feedback
+  getTopWord()
+}
+
+// - This is limited, if multiple spaces are added,
+// then empty strings are returned in the array.
+// - Also does not handle characters other than letters
+function getWords() {
+  clearFeedback()
+  let input = document.getElementById('words').value
+  return input.split(' ')
+}
+
+function displayNotPosted(word) {
+  let list    = document.getElementById('notPosted') || createNotPostedList()
+  list.appendChild( newListItem(word) )
+  return list
+}
+
+function newListItem(word){
+  let item       = document.createElement('li')
+  item.class     = 'notPostedWord'
+  item.innerHTML = word
+  return item
+}
+
+function createNotPostedList(){
+  let section    = document.getElementById('feedback')
+  section.hidden = false
+  section.innerHTML += '<p>The following words were NOT submitted.</p>'
+  section.innerHTML += '<p>Please remove non-alphbetical characters.</p>'
+  let list       = document.createElement('ul')
+  list.id        = 'notPosted'
+  feedback.appendChild(list)
+  return list
+}
+
+function clearFeedback() {
+  let section = document.getElementById('feedback')
+  section.innerHTML = ''
+  section.hidden    = true
+  return section
+}
 
 __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
-
   getTopWord()
-
-
-
-
+  addWordsSubmission()
 })
 
 
@@ -10424,7 +10497,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700);", ""]);
 
 // module
-exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after {\n  content: '';\n  content: none; }\n\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbody {\n  font-family: \"Open Sans\", \"Helvetica\", sans-serif;\n  color: #555;\n  margin: 5px;\n  background-color: #ebebeb;\n  overflow: hidden; }\n\nh1 {\n  font-size: 3em; }\n\nh2 {\n  font-size: 2.5em; }\n\nh3 {\n  font-size: 2em; }\n\nh4 {\n  font-size: 1.5em; }\n\na {\n  text-decoration: none;\n  color: #555; }\n\nmain {\n  display: flex;\n  justify-content: space-between; }\n  main .text-submission {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    flex: 1;\n    margin-right: 20px;\n    height: 100vh; }\n    main .text-submission h2 {\n      margin-bottom: 10px;\n      color: #4B0082; }\n      main .text-submission h2 span {\n        color: #FA8072; }\n    main .text-submission textarea {\n      resize: none;\n      border: 2px solid #ededf5;\n      border-radius: 3px;\n      width: 100%;\n      height: 80vh;\n      font-family: \"Open Sans\", \"Helvetica\", sans-serif; }\n    main .text-submission button {\n      border: none;\n      color: #ededf5;\n      width: 205px;\n      border-radius: 3px;\n      padding: .8em 3em;\n      font-size: 1.1em;\n      margin-top: 10px;\n      transition: 300ms;\n      background-color: #FA8072; }\n      main .text-submission button:hover, main .text-submission button:focus {\n        transition: 300ms;\n        cursor: pointer;\n        background-color: #4B0082; }\n  main .word-data {\n    width: 65%;\n    background-color: #ddd; }\n    main .word-data #top-word {\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      border-bottom: 2px solid #4B0082;\n      height: 8vh;\n      color: #FA8072;\n      padding: 10px; }\n    main .word-data #word-count {\n      display: flex;\n      flex-wrap: wrap;\n      align-items: baseline;\n      padding: 5px;\n      overflow-y: scroll;\n      overflow-x: scroll;\n      height: 90vh; }\n      main .word-data #word-count p {\n        margin-right: 10px; }\n        main .word-data #word-count p span {\n          display: none; }\n", ""]);
+exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after {\n  content: '';\n  content: none; }\n\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbody {\n  font-family: \"Open Sans\", \"Helvetica\", sans-serif;\n  color: #555;\n  margin: 5px;\n  background-color: #ebebeb;\n  overflow: hidden; }\n\nh1 {\n  font-size: 3em; }\n\nh2 {\n  font-size: 2.5em; }\n\nh3 {\n  font-size: 2em; }\n\nh4 {\n  font-size: 1.5em; }\n\na {\n  text-decoration: none;\n  color: #555; }\n\nmain {\n  display: flex;\n  justify-content: space-between; }\n  main .text-submission {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    flex: 1;\n    margin-right: 20px;\n    height: 100vh; }\n    main .text-submission h2 {\n      margin-bottom: 10px;\n      color: #4B0082; }\n      main .text-submission h2 span {\n        color: #FA8072; }\n    main .text-submission textarea {\n      resize: none;\n      border: 2px solid #ededf5;\n      border-radius: 3px;\n      width: 100%;\n      height: 80vh;\n      font-family: \"Open Sans\", \"Helvetica\", sans-serif; }\n    main .text-submission button {\n      border: none;\n      color: #ededf5;\n      width: 205px;\n      border-radius: 3px;\n      padding: .8em 3em;\n      font-size: 1.1em;\n      margin-top: 10px;\n      transition: 300ms;\n      background-color: #FA8072; }\n      main .text-submission button:hover, main .text-submission button:focus {\n        transition: 300ms;\n        cursor: pointer;\n        background-color: #4B0082; }\n    main .text-submission #feedback {\n      display: flex;\n      flex-direction: column;\n      text-align: center;\n      align-content: center;\n      justify-content: center;\n      margin: 5%; }\n      main .text-submission #feedback p {\n        font-size: .6em;\n        color: red;\n        margin-top: 2%; }\n      main .text-submission #feedback ul {\n        margin-top: 3%;\n        font-size: .8em;\n        font-weight: bolder; }\n        main .text-submission #feedback ul li {\n          margin-top: 1%; }\n  main .word-data {\n    width: 65%;\n    background-color: #ddd; }\n    main .word-data #top-word {\n      display: flex;\n      flex-direction: column;\n      text-align: center;\n      align-items: center;\n      border-bottom: 2px solid #4B0082;\n      height: 8vh;\n      color: #FA8072;\n      padding: 10px; }\n    main .word-data span {\n      background-color: #FA8072;\n      color: white;\n      position: relative;\n      width: 50%;\n      padding: 15%;\n      margin: 15%;\n      justify-content: center; }\n      main .word-data span p {\n        margin: 5%; }\n    main .word-data #topWord {\n      font-size: 3em;\n      font-weight: bolder; }\n", ""]);
 
 // exports
 
