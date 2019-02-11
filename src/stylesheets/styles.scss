@@ -81,19 +81,25 @@ main {
       align-content:   center;
       justify-content: center;
 
+      margin: 5%;
+
       p {
-        font-size: .6em;
-        color:     red;
+        font-size:  .6em;
+        color:      red;
+        margin-top: 2%;
       }
 
       ul {
+        margin-top: 3%;
         font-size: .8em;
-        // list-style-type: circle;
         font-weight: bolder;
+
+        li {
+          margin-top: 1%;
+          // list-style-type: circle;
+        }
       }
-
     }
-
   }
 
   .word-data {

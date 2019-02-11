@@ -59,13 +59,14 @@ function postWord(word){
     body:    JSON.stringify(json)
   })
     .then(response => response.json())
-    .then(msg => assessPost(msg, word) )
+    .then(msg  => assessPost(msg, word) )
     .catch(msg => assessPost(msg, word))
 }
 
 function assessPost(message, word) {
   let msg = message.message
   if ( !msg.endsWith('added!') ) { displayNotPosted(word) }
+  // TO DO - add positive feedback
   getTopWord()
 }
 
@@ -73,14 +74,12 @@ function assessPost(message, word) {
 // then empty strings are returned in the array.
 // - Also does not handle characters other than letters
 function getWords() {
-  // notPosted = []
   clearFeedback()
   let input = document.getElementById('words').value
   return input.split(' ')
 }
 
 function displayNotPosted(word) {
-  // document.getElementById('notPosted') ? document.getElementById('notPosted') : createNotPostedList()
   let list    = document.getElementById('notPosted') || createNotPostedList()
   list.appendChild( newListItem(word) )
   return list
@@ -90,7 +89,6 @@ function newListItem(word){
   let item       = document.createElement('li')
   item.class     = 'notPostedWord'
   item.innerHTML = word
-  // item.style     = "list-style-type:circle;"
   return item
 }
 
